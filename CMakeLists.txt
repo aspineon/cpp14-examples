@@ -1,0 +1,10 @@
+PROJECT(rpc)
+CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
+SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++1y")
+
+FILE(GLOB SRCS *.cpp)
+
+ADD_LIBRARY(modules ${SRCS})
+
+ADD_EXECUTABLE(main main.cpp)
+TARGET_LINK_LIBRARIES(main modules)
