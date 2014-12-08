@@ -30,6 +30,20 @@ TEST(LITERAL_TEST, string_literal) {
   EXPECT_TRUE(is_same_type);
 }
 
+/**
+ * Convert light_speed literal to m/s, e.g. 0.8_c means 0.8 * c m/s
+ */
+constexpr long double operator"" _c(long double light_speed) {
+  return light_speed * 299'792'458;
+}
+
+TEST(LITERAL_TEST, user_defined) {
+  // user defined literal
+  auto ls = 0.8_c;
+  long double ans = 0.8 * 299'792'458.0;
+  EXPECT_DOUBLE_EQ(ans, ls);
+}
+
 TEST(LITERAL_TEST, utf8_literal) {
   // utf8 literal
   std::string u8str(u8"☃");
