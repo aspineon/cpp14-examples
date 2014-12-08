@@ -29,3 +29,18 @@ TEST(TYPE_TEST, template_alias) {
   EXPECT_EQ(3, p.first);
   EXPECT_EQ(4, p.second);
 }
+
+// variadic templates. defined recursively
+template<typename T>
+T sum(T n) {
+  return n;
+}
+template <typename T, typename... Args>
+T sum(T n, Args... rest) {
+  return n + sum(rest...);
+}
+
+TEST(TYPE_TEST, variadic_template) {
+  EXPECT_EQ(15, sum(1,2,3,4,5));
+  EXPECT_DOUBLE_EQ(6.0, sum(1.0, 2.0, 3.0));
+}
