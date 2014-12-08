@@ -12,10 +12,10 @@ decltype(auto) sum(const T &t, const U &u) {
   return t + u;
 }
 
-TEST(TYPE_INFERENCE_TEST, trailing_return_type) {
+TEST(TYPE_TEST, trailing_return_type) {
   EXPECT_EQ(1.0 * 5L, product(5L, 1.0));
 }
 
-TEST(TYPE_INFERENCE_TEST, decltype_auto) {
+TEST(TYPE_TEST, decltype_auto) {
   EXPECT_EQ(1.0 + 5L, sum(5L, 1.0));
 }

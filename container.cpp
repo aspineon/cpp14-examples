@@ -48,5 +48,5 @@ TEST(CONTAINER_TEST, all_of) {
     v.cbegin(),
     v.cend(),
     [](const int& ptr) { return ptr % 2 == 0; });
-  EXPECT_FALSE(not_null);
+  EXPECT_FALSE(all_even);
 }
