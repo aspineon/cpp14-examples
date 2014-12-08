@@ -1,51 +1,49 @@
-#include <iostream>
 #include <vector>
-#include "container.h"
+#include "gtest/gtest.h"
 
-void range_base_for() {
+/**
+ * Test using range-based for loop.
+ */
+TEST(CONTAINER_TEST, range_base_for)
+{
   // range-based for and list initialization
-  std::cout << "\033[1;32m==== range-based for ====\033[0m" << std::endl; 
   int integers[] = {1, 2, 3, 4, 5};
+  auto sum = 0;
   for (auto &i : integers) {
-    std::cout << "element: " << i << std::endl;    
+    sum += i;
   }
+  EXPECT_EQ(15, sum);
 }
 
-void non_member_begin_end() {
-  std::cout << "\033[1;32m==== non-member begin/end ====\033[0m" << std::endl; 
+/**
+ * Test using non-member begin/end
+ */
+TEST(CONTAINER_TEST, non_member_begin_end)
+{
   // non-member begin/end
   const char *names[] {"foo", "bar", "google"};
   auto it = std::find_if(std::begin(names), std::end(names), [](const char* s) { return strlen(s) > 4; });
-  if (it != std::end(names)) {
-    std::cout << *it << std::endl;
-  }
+  // assert found
+  EXPECT_NE(std::end(names), it);
+  EXPECT_EQ("google", *it);
 }
 
-void all_not_null() {
-  std::cout << "\033[1;32m==== all_of ====\033[0m" << std::endl;
-
-  // also a demo of unique_ptr and emplace_back
-  std::vector<std::unique_ptr<int>> v;
-  v.emplace_back(new int);
-  v.emplace_back(new int);
+/**
+ * Test using std::all_of
+ */
+TEST(CONTAINER_TEST, all_of) {
+  std::vector<int> v {0,2,4,6};
   auto not_null = std::all_of(
     v.cbegin(),
-    v.cbegin(),
-    [](const std::unique_ptr<int>& ptr) { return ptr != nullptr; });
-  if (not_null) {
-    std::cout << "all elements of vector v are not nullptr." << std::endl;
-  }
+    v.cend(),
+    [](const int& ptr) { return ptr % 2 == 0; });
 
-  v[0] = nullptr;
+  EXPECT_TRUE(not_null);
+  v.push_back(7);
+  
   not_null = std::all_of(
     v.cbegin(),
-    v.cbegin(),
-    [](const std::unique_ptr<int>& ptr) { return ptr != nullptr; });
-  assert(!not_null)
-}
-
-void container() {
-  range_base_for();
-  non_member_begin_end();
-  all_not_null();
+    v.cend(),
+    [](const int& ptr) { return ptr % 2 == 0; });
+  EXPECT_FALSE(not_null);
 }

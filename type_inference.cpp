@@ -1,7 +1,4 @@
-#include <iostream>
-#include "type_inference.h"
-
-using namespace std;
+#include "gtest/gtest.h"
 
 // trailing return type.
 template<typename T, typename U>
@@ -9,12 +6,16 @@ auto product(const T &t, const U &u) -> decltype(t * u) {
   return t * u;
 }
 
-// return type deduction 
-decltype(auto) trailing_return() {
-  cout << "product:" << product(1.0, 5L) << endl;
+// decltype(auto) return type deduction 
+template<typename T, typename U>
+decltype(auto) sum(const T &t, const U &u) {
+  return t + u;
 }
 
-void type_inference() {
-  cout << "\033[1;32m==== trailing return ====\033[0m" << endl; 
-  trailing_return();
+TEST(TYPE_INFERENCE_TEST, trailing_return_type) {
+  EXPECT_EQ(1.0 * 5L, product(5L, 1.0));
+}
+
+TEST(TYPE_INFERENCE_TEST, decltype_auto) {
+  EXPECT_EQ(1.0 + 5L, sum(5L, 1.0));
 }

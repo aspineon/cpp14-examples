@@ -1,14 +1,11 @@
-#include <iostream>
-#include "lambda.h"
-
-using namespace std;
+#include <type_traits>
+#include "gtest/gtest.h"
 
 // 'using' instead of typedef
 using voidfunc = void (*)();
 
-void lambda() {
-  voidfunc empty_lambda_func = [](){};
-  cout << "\033[1;32m==== lambda func ====\033[0m" << endl;
-  cout << "calling lambda func..." << endl;
-  empty_lambda_func();
+TEST(LAMBDA_TEST, func_type) {
+  voidfunc empty_lambda_func = [](){}; // implicit casting here.
+  bool is_same = std::is_same<voidfunc, decltype(empty_lambda_func)>::value;
+  EXPECT_TRUE(is_same);
 }

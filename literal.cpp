@@ -1,29 +1,21 @@
-#include <iostream>
-#include "literal.h"
+#include "gtest/gtest.h"
 
-void binary_literal() {
-  std::cout << "\033[1;32m==== binary literal ====\033[0m" << std::endl; 
+TEST(LITERAL_TEST, binary_literal) {
   // binary literal
   int binary = 0b1001;
-  std::cout << "binary 0b1001 = " << binary << std::endl;
+  EXPECT_EQ(9, binary);
 }
 
-void utf8_literal() {
+TEST(LITERAL_TEST, utf8_literal) {
   // utf8 literal
-  std::cout << "\033[1;32m==== utf8 literal ====\033[0m" << std::endl; 
-  char test[] = u8"two snowmen: ☃\u2603";
-  std::cout << test << std::endl;
+  std::string u8str(u8"☃");
+  EXPECT_EQ(u8"\u2603", u8str);
 }
 
-void raw_literal() {
-  std::cout << "\033[1;32m==== raw string literal ====\033[0m" << std::endl; 
-  std::cout << R"( 
+TEST(LITERAL_TEST, raw_literal) {
+  auto string_block = R"( 
     it is like python's """ raw string inside """
-    )" << std::endl;
+    )";
+  EXPECT_EQ(56, strlen(string_block));
 }
 
-void literal() {
-  binary_literal();
-  raw_literal();
-  utf8_literal();
-}

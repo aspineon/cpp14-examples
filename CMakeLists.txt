@@ -2,9 +2,13 @@ PROJECT(rpc)
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 SET(CMAKE_CXX_FLAGS "-g -Wall -Werror -std=c++1y")
 
+ADD_SUBDIRECTORY (gtest-1.7.0)
+
+ENABLE_TESTING()
+INCLUDE_DIRECTORIES(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+
 FILE(GLOB SRCS *.cpp)
+ADD_EXECUTABLE(main ${SRCS})
+TARGET_LINK_LIBRARIES(main gtest gtest_main)
 
-ADD_LIBRARY(modules ${SRCS})
-
-ADD_EXECUTABLE(main main.cpp)
-TARGET_LINK_LIBRARIES(main modules)
+ADD_TEST(AllTests main)
