@@ -21,8 +21,11 @@ TEST(CONTAINER_TEST, range_base_for)
 TEST(CONTAINER_TEST, non_member_begin_end)
 {
   // non-member begin/end
-  const char *names[] {"foo", "bar", "google"};
-  auto it = std::find_if(std::begin(names), std::end(names), [](const char* s) { return strlen(s) > 4; });
+  const char *names[] {"foo", "bar", "google", "tien"};
+  auto it = std::find_if(
+    std::begin(names),
+    std::end(names),
+    [](const char* s) { return strlen(s) > 4; });
   // assert found
   EXPECT_NE(std::end(names), it);
   EXPECT_EQ("google", *it);
@@ -33,15 +36,15 @@ TEST(CONTAINER_TEST, non_member_begin_end)
  */
 TEST(CONTAINER_TEST, all_of) {
   std::vector<int> v {0,2,4,6};
-  auto not_null = std::all_of(
+  auto all_even = std::all_of(
     v.cbegin(),
     v.cend(),
     [](const int& ptr) { return ptr % 2 == 0; });
 
-  EXPECT_TRUE(not_null);
+  EXPECT_TRUE(all_even);
   v.push_back(7);
   
-  not_null = std::all_of(
+  all_even = std::all_of(
     v.cbegin(),
     v.cend(),
     [](const int& ptr) { return ptr % 2 == 0; });
