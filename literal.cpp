@@ -1,10 +1,14 @@
 #include <string>
+#include <type_traits>
 #include "gtest/gtest.h"
 
 TEST(LITERAL_TEST, binary_literal) {
   // binary literal
   int binary = 0b1001;
   EXPECT_EQ(9, binary);
+  // integer is a literal type
+  EXPECT_TRUE(std::is_literal_type<decltype(binary)>::value);
+
   auto binary_seperated = 0b1001'1001;
   EXPECT_EQ(153, binary_seperated);
 }
@@ -17,10 +21,10 @@ TEST(LITERAL_TEST, chrono_literal) {
 }
 
 TEST(LITERAL_TEST, raw_literal) {
-  auto string_block = R"( 
+  auto string_block = R"(
     it is like python's """ raw string inside """
     )";
-  EXPECT_EQ(56, strlen(string_block));
+  EXPECT_EQ(55, strlen(string_block));
 }
 
 TEST(LITERAL_TEST, string_literal) {
