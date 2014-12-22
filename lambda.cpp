@@ -4,6 +4,9 @@
 // 'using' instead of typedef
 using voidfunc = void (*)();
 
+/**
+ * Testing the feature of a basic lambda function.
+ */
 TEST(LAMBDA_TEST, func_type) {
   voidfunc empty_lambda_func = [](){}; // implicit casting here.
   bool is_same = std::is_same<voidfunc, decltype(empty_lambda_func)>::value;

@@ -1,5 +1,10 @@
 #include "gtest/gtest.h"
 
+/**
+ * A demonstration of noncopyable implementation.
+ * `delete` keyword can be used to prevent the
+ * user from copying the object, if used properly.
+ */
 TEST(NONCOPYABLE, by_delete_keyword) {
   class noncopyable_string {
    public:

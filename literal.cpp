@@ -2,6 +2,19 @@
 #include <type_traits>
 #include "gtest/gtest.h"
 
+/**
+ * Convert light_speed literal to m/s, e.g. 0.8_c means 0.8 * c m/s
+ * A demonstration of user defined literal, see `user_defined` TEST
+ * below
+ */
+constexpr long double operator"" _c(long double light_speed) {
+  return light_speed * 299'792'458;
+}
+
+/**
+ * Testing the feature of binary literal.
+ * e.g. 0b1001 -> integer 9.
+ */
 TEST(LITERAL_TEST, binary_literal) {
   // binary literal
   int binary = 0b1001;
@@ -13,6 +26,9 @@ TEST(LITERAL_TEST, binary_literal) {
   EXPECT_EQ(153, binary_seperated);
 }
 
+/**
+ * Testing the feature of chrono literal.
+ */
 TEST(LITERAL_TEST, chrono_literal) {
   using namespace std::literals;
   auto t = 1ms;
@@ -20,6 +36,9 @@ TEST(LITERAL_TEST, chrono_literal) {
   EXPECT_TRUE(is_same_type);
 }
 
+/**
+ * Testing the feature of raw string literal
+ */
 TEST(LITERAL_TEST, raw_literal) {
   auto string_block = R"(
     it is like python's """ raw string inside """
@@ -27,6 +46,9 @@ TEST(LITERAL_TEST, raw_literal) {
   EXPECT_EQ(55, strlen(string_block));
 }
 
+/**
+ * Testing the string literal of std::string.
+ */
 TEST(LITERAL_TEST, string_literal) {
   using namespace std::literals;
   auto s = "string"s;
@@ -35,12 +57,8 @@ TEST(LITERAL_TEST, string_literal) {
 }
 
 /**
- * Convert light_speed literal to m/s, e.g. 0.8_c means 0.8 * c m/s
+ * Testing the feature of user defined literal.
  */
-constexpr long double operator"" _c(long double light_speed) {
-  return light_speed * 299'792'458;
-}
-
 TEST(LITERAL_TEST, user_defined) {
   // user defined literal
   auto ls = 0.8_c;
@@ -48,6 +66,9 @@ TEST(LITERAL_TEST, user_defined) {
   EXPECT_DOUBLE_EQ(ans, ls);
 }
 
+/**
+ * A demonstration of utf8 string literal.
+ */
 TEST(LITERAL_TEST, utf8_literal) {
   // utf8 literal
   std::string u8str(u8"☃");
