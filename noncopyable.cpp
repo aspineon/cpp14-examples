@@ -22,6 +22,7 @@ TEST(NONCOPYABLE, by_delete_keyword) {
 
   EXPECT_EQ(0, s1.len());
   EXPECT_EQ(6, s2.len());
+  EXPECT_FALSE(std::is_copy_assignable<noncopyable_string>::value);
 
   // The following statements will have compile errors
   // noncopyable_string s3(s2);
