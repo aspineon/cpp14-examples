@@ -1,11 +1,5 @@
 #include "gtest/gtest.h"
 
-void incr(int& r1, int& r2, const int& r3) {
-  r1++;
-  r2++;
-  //r3++; // compile error
-}
-
 /**
  * std::ref<T> returns std::reference_wrapper<T>
  */
