@@ -65,9 +65,6 @@ void foo() {
   return;
 }
 
-template<typename T>
-class TD;
-
 /**
  * Test if 'auto' decude to function pointer for function.
  */
