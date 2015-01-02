@@ -63,6 +63,7 @@ TEST(AUTO_TEST, auto_array) {
 /**
  * List initializer has no type and is treated specially by auto type deduction
  * N3922 the behavior may have change with or without '='
+ * This is also the only rule that is different from template type deduction.
  */
 TEST(AUTO_TEST, initializer_list_test) {
   auto a = { 1, 2, 3 };
