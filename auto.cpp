@@ -60,6 +60,19 @@ TEST(AUTO_TEST, auto_array) {
   EXPECT_TRUE((std::is_same<int (&)[5], decltype(ra)>::value));
 }
 
+/**
+ * List initializer has no type and is treated specially by auto type deduction
+ * N3922 the behavior may have change with or without '='
+ */
+TEST(AUTO_TEST, initializer_list_test) {
+  auto a = { 1, 2, 3 };
+  EXPECT_TRUE((std::is_same<std::initializer_list<int>, decltype(a)>::value));
+  auto b = { 1.0, 2.0, 3.0 };
+  EXPECT_TRUE((std::is_same<std::initializer_list<double>, decltype(b)>::value));
+  auto c = { "foo", "bar" };
+  EXPECT_TRUE((std::is_same<std::initializer_list<const char *>, decltype(c)>::value));
+}
+
 // a dummy function
 void foo() {
   return;
