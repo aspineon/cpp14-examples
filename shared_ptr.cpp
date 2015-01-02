@@ -12,7 +12,7 @@ struct SharedPtrDemo : public std::enable_shared_from_this<SharedPtrDemo> {
  * shared_from_this() is normally invoked within the class.
  */
 TEST(SHARED_PTR_TEST, enable_shared_from_this_test) {
-  std::shared_ptr<SharedPtrDemo> p(new SharedPtrDemo);
+  std::shared_ptr<SharedPtrDemo> p = std::make_shared<SharedPtrDemo>();
   EXPECT_EQ(p, p->shared_from_this());
 }
 
@@ -31,7 +31,7 @@ TEST(SHARED_PTR_TEST, enable_shared_not_shared_ptr) {
  * unless it is accessing the pointer by lock()
  */
 TEST(SHARED_PTR_TEST, weak_ptr_test) {
-  std::shared_ptr<SharedPtrDemo> p(new SharedPtrDemo);
+  std::shared_ptr<SharedPtrDemo> p = std::make_shared<SharedPtrDemo>();
   std::weak_ptr<SharedPtrDemo> wp(p);
   EXPECT_EQ(1, p.use_count());
   // trying to access weak_ptr by lock()
