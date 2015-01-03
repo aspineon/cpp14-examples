@@ -55,6 +55,24 @@ TEST(REGEX_TEST, regex_match_string_test) {
 }
 
 /**
+ * regex_match with a utf8 target test
+ */
+TEST(REGEX_TEST, regex_match_utf8target_test) {
+  const std::string utf8target(u8"sub☃☃☃☃");
+  const std::regex pattern("sub(.*)");
+  std::smatch match_result;
+
+  // regex_match has to match the entire target sequence.
+  EXPECT_TRUE(std::regex_match(utf8target, pattern));
+  EXPECT_TRUE(std::regex_match(utf8target, match_result, pattern));
+  EXPECT_FALSE(match_result.empty());
+  EXPECT_EQ(2, match_result.size());
+  EXPECT_EQ(u8"sub☃☃☃☃", match_result[0]);
+  EXPECT_EQ(u8"\u2603\u2603\u2603\u2603", match_result[1]);
+
+}
+
+/**
  * An example of using regex_search to parse http logs.
  */
 TEST(REGEX_TEST, regex_search_string_test) {
