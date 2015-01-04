@@ -29,6 +29,35 @@ TEST(AUTO_TEST, auto_with_const_ref) {
 }
 
 /**
+ * 'auto' type deduction with pointer type
+ */
+TEST(AUTO_TEST, auto_with_pointer_test) {
+  const int i = 1;
+  const int* pi = &i;
+
+  auto pa = pi;
+  EXPECT_TRUE((std::is_same<const int*, decltype(pa)>::value));
+
+  const auto cpa = pi;
+  EXPECT_TRUE((std::is_same<const int *const, decltype(cpa)>::value));
+
+  // Declare auto& doesn't guarantee that the variable is not a pointer.
+  auto& ra = pi;
+  EXPECT_TRUE((std::is_same<const int *&, decltype(ra)>::value));
+  EXPECT_EQ(1, *ra);
+
+  const auto& cra = pi;
+  EXPECT_TRUE((std::is_same<const int *const &, decltype(cra)>::value));
+  EXPECT_EQ(1, *cra);
+
+  auto* ppa = pi;
+  EXPECT_TRUE((std::is_same<const int*, decltype(ppa)>::value));
+
+  const auto* cppa = pi;
+  EXPECT_TRUE((std::is_same<const int*, decltype(cppa)>::value));
+}
+
+/**
  * 'auto&&' means lvalue or rvalue, aka universal reference.
  * && in the context of type deduction means rvalue or lvalue.
  */
